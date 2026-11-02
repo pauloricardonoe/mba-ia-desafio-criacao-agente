@@ -1,3 +1,17 @@
 .env
 .venv/
 __pycache__/
+
+# Bancos SQLite de runtime (sessões do ADK e dados do condomínio)
+*.db
+*.db-wal
+*.db-shm
+
+# Sistema e IDE
+.DS_Store
+.idea/
+
+# Ferramental de planejamento (OpenSpec e seus comandos/skills para agentes).
+# Não faz parte do entregável.
+.claude/
+openspec/
