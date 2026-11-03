@@ -67,15 +67,15 @@ ou visitante vem da memória do modelo: toda leitura e toda gravação passam pe
 
 ### Garantia 1 — cobrança ou acesso só com confirmação
 
-**Onde:** `aurora/agentes/agentes.py:90` e `:106`, `aurora/agentes/execucao.py:128`,
-`aurora/dominio/confirmacoes.py:131`
+**Onde:** `aurora/agentes/agentes.py:99` e `:115`, `aurora/agentes/execucao.py:128`,
+`aurora/dominio/confirmacoes.py:130`
 
 A exigência de confirmação é declarada na própria tool, não pedida ao modelo em texto:
 
 ```python
-# aurora/agentes/agentes.py:90
+# aurora/agentes/agentes.py:99
 FunctionTool(criar_reserva, require_confirmation=reserva_exige_confirmacao),
-# aurora/agentes/agentes.py:106
+# aurora/agentes/agentes.py:115
 tools=[FunctionTool(autorizar_visitante, require_confirmation=True)],
 ```
 
@@ -184,7 +184,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS reserva_ativa_unica
 E a disputa perdida vira resposta normal:
 
 ```python
-# aurora/dominio/repositorio.py:311
+# aurora/dominio/repositorio.py:315
 except sqlite3.IntegrityError:
     # Perdeu a disputa: a data já tem reserva ativa. É resposta normal.
     con.execute("ROLLBACK")

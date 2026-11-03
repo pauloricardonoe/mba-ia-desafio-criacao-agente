@@ -195,9 +195,13 @@ class Repositorio:
             maior = max(
                 (int(r["codigo"].split("-")[-1]) for r in reservas), default=0
             )
+            # MAX em vez de sobrescrever: restaurar devolve os dados ao estado
+            # inicial, mas o contador nunca anda para trás. Sem isso, códigos
+            # emitidos antes da restauração voltariam a estar disponíveis, e a
+            # regra 5 pede que um código nunca se repita.
             con.execute(
                 "INSERT INTO contador (nome, valor) VALUES ('reserva', ?)"
-                " ON CONFLICT(nome) DO UPDATE SET valor = excluded.valor",
+                " ON CONFLICT(nome) DO UPDATE SET valor = MAX(valor, excluded.valor)",
                 (maior,),
             )
             con.execute("COMMIT")
